@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
         textDecoration: 'none'
     },
     toggleMenu: {
+        display: 'flex',
         zIndex: '7000'
     }
 }));
@@ -61,35 +62,37 @@ export default function NavBar() {
     }
     let menu
     if (currentUser) {
-        menu = <div className={classes.toggleMenu}>
-            <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="success"
-            >
-                <AccountCircle />
-            </IconButton>
-            <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                }}
-                open={open}
-                onClose={handleClose}
-            >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleLogOut}>Log out</MenuItem>
-            </Menu>
-        </div>
+        menu =
+            <div className={classes.toggleMenu}>
+                <MenuItem><Link to='/posts/create' className={classes.link}>Create Post</Link></MenuItem>
+                <IconButton
+                    aria-label="account of current user"
+                    aria-controls="menu-appbar"
+                    aria-haspopup="true"
+                    onClick={handleMenu}
+                    color="success"
+                >
+                    <AccountCircle />
+                </IconButton>
+                <Menu
+                    id="menu-appbar"
+                    anchorEl={anchorEl}
+                    anchorOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    keepMounted
+                    transformOrigin={{
+                        vertical: 'top',
+                        horizontal: 'right',
+                    }}
+                    open={open}
+                    onClose={handleClose}
+                >
+                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={handleLogOut}>Log out</MenuItem>
+                </Menu>
+            </div>
     } else {
         menu = <div>
             <Link align='left' className={classes.link} to='/login'><Button variant='h6' >Login</Button></Link>

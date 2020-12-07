@@ -1,0 +1,26 @@
+input, textarea {
+width: 100%;
+padding: 10px 0;
+font-size: 16px;
+color: #A5B1B6;
+margin-bottom: 30px;
+border: none;
+border-bottom: 1px solid #A5B1B6;
+outline: none;
+background: transparent;
+}
+
+label {
+top:0;
+left: 0;
+padding: 10px 0;
+font-size: 16px;
+color: #A5B1B6;
+pointer-events: none;
+transition: .5s;
+}
+
+textarea {
+    resize: none;
+
+}
