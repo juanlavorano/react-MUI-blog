@@ -3,6 +3,16 @@ const app = express();
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 
+//ACCESS - CONTROL - ALLOW - ORIGIN
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+    ;
+    next();
+});
+
 // IMPORTS
 const postsRoute = require('./routes/posts')
 
@@ -12,7 +22,7 @@ dotenv.config()
 // CONNECT TO MONGODB
 mongoose.set('useUnifiedTopology', true)
 
-mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://juanlavorano:juanlavorano@cluster0.zjw2k.mongodb.net/<dbname>?retryWrites=true&w=majority",
+mongoose.connect(process.env.MONGODB_URI || process.env.DB_CONNECT,
     { useNewUrlParser: true }
     , () => console.log('Connected to DB'))
 

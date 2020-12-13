@@ -1,9 +1,9 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles'
+import React from 'react'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import Typography from '@material-ui/core/Typography'
 import main from '../../../assets/main.jpg'
-import { useTheme } from '@material-ui/styles';
+import { useTheme } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
     image: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MainImage() {
-    const classes = useStyles();
+    const classes = useStyles()
     const theme = useTheme()
 
     return (

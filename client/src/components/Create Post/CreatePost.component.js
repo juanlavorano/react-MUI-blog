@@ -22,9 +22,11 @@ export default function Register() {
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
     const [loading, setLoading] = useState(false)
-    const { logIn } = useAuth()
+    const { currentUser } = useAuth()
     const titleRef = useRef()
+    const [title, setTitle] = useState('')
     const contentRef = useRef()
+    const [content, setContent] = useState('')
     const classes = useStyles();
     const history = useHistory()
 
@@ -35,15 +37,29 @@ export default function Register() {
             setError('')
             setSuccess('Successfully Posted!')
             setLoading(true)
-            await
-                history.push('/')
+            await axios.post('http://localhost:5000/posts/create', {
+                title: title,
+                author: currentUser.email,
+                content: content
+            })
         } catch {
             setSuccess('')
             setError('Failed to post')
+            setLoading(false)
+            return { error }
         }
         setLoading(false)
+        history.push('/')
     }
 
+    const handleContentChange = (e) => {
+        e.preventDefault()
+        setContent(e.target.value)
+    }
+    const handleTitleChange = (e) => {
+        e.preventDefault()
+        setTitle(e.target.value)
+    }
 
     return (
         <Container className={classes.container} maxWidth="s">
@@ -57,16 +73,16 @@ export default function Register() {
                             </Grid>
                             <Grid item xs={12}>
                                 <label>Title</label>
-                                <input type="text" name="title" ref={titleRef} />
+                                <input type="text" name="title" ref={titleRef} value={title} onChange={handleTitleChange} />
                             </Grid>
                             <Grid item xs={12}>
                                 <label>Post</label>
-                                <textarea rows="10" cols="40" type="text" name="Write your content here..." ref={contentRef} />
+                                <textarea rows="10" cols="40" type="text" name="Write your content here..." value={content} ref={contentRef} onChange={handleContentChange} />
                             </Grid>
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                        <Button color="secondary" fullWidth type="submit" variant="contained">
+                        <Button disabled={loading} color="secondary" fullWidth type="submit" variant="contained">
                             Create
                 </Button>
                     </Grid>

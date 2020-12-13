@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Container from '@material-ui/core/Container'
@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import ButtonBase from '@material-ui/core/ButtonBase'
 import pic from '../../assets/pic.jpg'
 import ReadMore from './ReadMore.component'
+import Loading from '../Loading.component'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -37,34 +38,47 @@ const useStyles = makeStyles((theme) => ({
     },
     text: {
         color: '#fff',
-        maxLength: '3',
+        textAlign: 'justify'
 
     },
 
 }));
 
-export default function MainCard() {
+export default function MainCard({ post }) {
     const classes = useStyles();
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        if (post) {
+            setLoading(false)
+        }
+    })
 
     return (
         <div>
-            <Container variant="outlined" elevation={0} className={classes.paper}>
-                <Grid container className={classes.container}>
-                    <Grid item>
-                        <ButtonBase className={classes.image}>
-                            <img className={classes.img} alt="complex" src={pic} />
-                        </ButtonBase>
-                    </Grid>
-                    <Grid className={classes.textBox}>
-                        <Typography variant="h5" className={classes.text}>
-                            Title
-                        </Typography>
-                        <Typography display='inline' variant="body2" className={classes.text}>
-                            Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. <ReadMore />
-                        </Typography>
-                    </Grid>
-                </Grid>
-            </Container>
-        </div >
+            {!loading ?
+                <div>
+                    <Container variant="outlined" elevation={0} className={classes.paper}>
+                        <Grid container className={classes.container}>
+                            <Grid item>
+                                <ButtonBase className={classes.image}>
+                                    <img className={classes.img} alt="complex" src={pic} />
+                                </ButtonBase>
+                            </Grid>
+                            <Grid className={classes.textBox}>
+                                <Typography variant="h5" className={classes.text}>
+                                    {post.title}
+                                </Typography>
+                                <Typography display='inline' variant="body2" className={classes.text}>
+                                    {(post.content).slice(0, 230)}<ReadMore route={post._id} />
+                                </Typography>
+                            </Grid>
+                        </Grid>
+                    </Container>
+                </div>
+                :
+                <Loading />
+            }
+        </div>
     );
 }

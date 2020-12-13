@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios'
 import MainCard from '../MainCard.component'
 import SubCard from '../SubCard.component'
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography'
+import Loading from '../../Loading.component'
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,6 +16,22 @@ const useStyles = makeStyles((theme) => ({
 
 const LatestPosts = () => {
     const classes = useStyles()
+    const [lastPost, setLastPost] = useState(undefined)
+    const [otherPosts, setOtherPosts] = useState(undefined)
+
+    useEffect(async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/posts/get-latest-posts')
+            const [main, other] = await response.data
+            setLastPost(main[0])
+            setOtherPosts(other)
+            // setLoading(false)
+        } catch (error) {
+            console.log(error)
+        }
+    }, [])
+
+
     return (
         <div>
             <Typography className={classes.title} spacing={2} variant="h5">
@@ -21,16 +39,21 @@ const LatestPosts = () => {
                 </Typography>
             <Grid container spacing={2}>
                 <Grid item md={6} sm={12}>
-                    <MainCard />
+                    <MainCard post={lastPost} />
                 </Grid>
-                <Grid spacing={2} justify='space-between' direction='column' alignContent='center' item container md={6} sm={12}>
-                    <Grid item>
-                        <SubCard item />
+                {otherPosts ?
+                    <Grid spacing={2} justify='space-between' direction='column' alignContent='center' item container md={6} sm={12}>
+                        <Grid item>
+                            <SubCard post={otherPosts[0]} item />
+                        </Grid>
+
+                        <Grid item>
+                            <SubCard post={otherPosts[1]} item />
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                        <SubCard item />
-                    </Grid>
-                </Grid>
+                    :
+                    <Loading />
+                }
             </Grid>
         </div>
     )

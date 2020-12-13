@@ -1,11 +1,12 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import ButtonBase from '@material-ui/core/ButtonBase';
+import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import Grid from '@material-ui/core/Grid'
+import Container from '@material-ui/core/Container'
+import Typography from '@material-ui/core/Typography'
+import ButtonBase from '@material-ui/core/ButtonBase'
 import ReadMore from './ReadMore.component'
 import square from '../../assets/square.jpg'
+import Loading from '../Loading.component'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -13,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100%',
     },
     paper: {
-        maxWidth: 500,
+        minWidth: 500,
         overflow: 'hidden',
         padding: 0
     },
@@ -38,37 +39,44 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function ComplexGrid() {
+export default function SubCard({ post }) {
     const classes = useStyles();
 
+
     return (
+
         <div className={classes.root}>
-            <Container fixed className={classes.paper}>
-                <Grid container>
-                    <Grid className={classes.grid} item>
-                        <ButtonBase className={classes.image}>
-                            <img className={classes.img} alt="complex" src={square} />
-                        </ButtonBase>
-                    </Grid>
-                    <Grid item xs={12} sm container className={classes.margin}>
-                        <Grid item xs container direction="column">
-                            <Grid item xs>
-                                <Typography gutterBottom variant="subtitle1">
-                                    Title
-                                </Typography>
-                                <Typography variant="body2" gutterBottom>
-                                    Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
-                                </Typography>
-                            </Grid>
-                            <Grid item>
-                                <Typography variant="body2">
-                                    <ReadMore className={classes.text} />
-                                </Typography>
+            {post ?
+
+                < Container fixed className={classes.paper}>
+                    <Grid container>
+                        <Grid className={classes.grid} item>
+                            <ButtonBase className={classes.image}>
+                                <img className={classes.img} alt="complex" src={square} />
+                            </ButtonBase>
+                        </Grid>
+                        <Grid item xs={12} sm container className={classes.margin}>
+                            <Grid item xs container direction="column">
+                                <Grid item xs>
+                                    <Typography gutterBottom variant="subtitle1">
+                                        {post.title}
+                                    </Typography>
+                                    <Typography variant="body2" gutterBottom>
+                                        {post.content}
+                                    </Typography>
+                                </Grid>
+                                <Grid item>
+                                    <Typography variant="body2">
+                                        <ReadMore route={post._id} className={classes.text} />
+                                    </Typography>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-                </Grid>
-            </Container>
+                </Container>
+                :
+                <Loading />
+            }
         </div>
     );
 }

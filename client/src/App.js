@@ -6,6 +6,7 @@ import MainPage from './components/MainPage/MainPage.component'
 import Login from './components/Login/Login.component'
 import Register from './components/Register/Register.component'
 import CreatePost from './components/Create Post/CreatePost.component'
+import Post from './components/Post/Post.component'
 import { AuthProvider } from './context/AuthContext'
 import {
   BrowserRouter as Router,
@@ -24,6 +25,7 @@ function App() {
             <Route path='/login' component={Login} />
             <Route path='/register' component={Register} />
             <Route path='/posts/create' component={CreatePost} />
+            <Route path='/post/:id' component={Post} />
           </Switch>
           <Footer />
         </div >
