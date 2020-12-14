@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
     paper: {
         minWidth: 500,
+        maxHeight: '100%',
         overflow: 'hidden',
         padding: 0
     },
@@ -62,12 +63,7 @@ export default function SubCard({ post }) {
                                         {post.title}
                                     </Typography>
                                     <Typography variant="body2" gutterBottom>
-                                        {post.content}
-                                    </Typography>
-                                </Grid>
-                                <Grid item>
-                                    <Typography variant="body2">
-                                        <ReadMore route={post._id} className={classes.text} />
+                                        {(post.content).slice(0, 180)}<ReadMore color='black' route={post._id} />
                                     </Typography>
                                 </Grid>
                             </Grid>

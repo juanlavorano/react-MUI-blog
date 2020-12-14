@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
     text: {
         fontStyle: 'italic',
-        textDecoration: 'none'
+        textDecoration: 'none',
     }
 }));
 
@@ -14,8 +14,8 @@ export default function ReadMore(props) {
     const classes = useStyles();
 
     return (
-        <ReadMoreLink to={`/post/${props.route}`} color='inherit' style={{ cursor: 'pointer' }} className={classes.text}>
-            <Link>
+        <ReadMoreLink to={`/post/${props.route}`} style={{ cursor: 'pointer' }} className={classes.text}>
+            <Link color={props.color}>
                 {` ...Read More`}
             </Link>
         </ReadMoreLink>

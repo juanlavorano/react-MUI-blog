@@ -4,12 +4,13 @@ import axios from 'axios'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
+import nl2br from 'react-nl2br'
 
 const useStyles = makeStyles((theme) => ({
     container: {
         display: 'flex',
         padding: theme.spacing(3),
-        height: '72.5vh',
+        height: '100%',
     },
 }));
 
@@ -37,7 +38,7 @@ export default function Post() {
                                     <h1>{post.title}</h1>
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <p>{post.content}</p>
+                                    {nl2br(post.content)}
                                 </Grid>
                             </Grid>
                         </Grid>
