@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import LatestPosts from './LatestPosts/LatestPosts.component'
 import MorePosts from './MorePosts/MorePosts.component'
 import DividerLine from '../Divider.component'

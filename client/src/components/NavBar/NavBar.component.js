@@ -28,9 +28,12 @@ const useStyles = makeStyles((theme) => ({
         color: '#000',
         textDecoration: 'none'
     },
+    menu: {
+        zIndex: '7000'
+
+    },
     toggleMenu: {
         display: 'flex',
-        zIndex: '7000'
     }
 }));
 
@@ -75,6 +78,7 @@ export default function NavBar() {
                     <AccountCircle />
                 </IconButton>
                 <Menu
+                    className={classes.menu}
                     id="menu-appbar"
                     anchorEl={anchorEl}
                     anchorOrigin={{
@@ -89,7 +93,7 @@ export default function NavBar() {
                     open={open}
                     onClose={handleClose}
                 >
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={handleClose} to=''><Link to={`/profile/${currentUser.email}`} className={classes.link}>Profile</Link></MenuItem>
                     <MenuItem onClick={handleLogOut}>Log out</MenuItem>
                 </Menu>
             </div>

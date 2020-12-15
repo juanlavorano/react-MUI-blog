@@ -56,7 +56,7 @@ const MorePosts = () => {
                     </Grid>
                 </div>
                 :
-                <h1>Loading...</h1>
+                <Loading />
             }
         </div >
     )

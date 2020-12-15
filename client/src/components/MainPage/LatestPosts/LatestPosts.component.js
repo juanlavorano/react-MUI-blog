@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'
+import API from '../../api'
 import MainCard from '../MainCard.component'
 import SubCard from '../SubCard.component'
 import Grid from '@material-ui/core/Grid';
@@ -21,7 +21,7 @@ const LatestPosts = () => {
 
     useEffect(async () => {
         try {
-            const response = await axios.get('http://localhost:5000/posts/get-latest-posts')
+            const response = await API.get('/posts/get-latest-posts')
             const [main, other] = await response.data
             setLastPost(main[0])
             setOtherPosts(other)

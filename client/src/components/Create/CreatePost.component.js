@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import axios from 'axios'
+import API from '../api'
 import './Form.css'
 import Button from '@material-ui/core/Button'
 import Container from '@material-ui/core/Container'
@@ -37,7 +37,7 @@ export default function Register() {
             setError('')
             setSuccess('Successfully Posted!')
             setLoading(true)
-            await axios.post('http://localhost:5000/posts/create', {
+            await API.post('/posts/create', {
                 title: title,
                 author: currentUser.email,
                 content: content
