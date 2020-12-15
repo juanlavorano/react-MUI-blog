@@ -1,2 +1,3 @@
 # react-MUI-blog
-# react-mui-blog
+
+Blog created with the MERN stack and Material UI
